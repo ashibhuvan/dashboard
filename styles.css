@@ -1,0 +1,730 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #0d1421;
+    color: #e1e5e9;
+    overflow: hidden;
+}
+
+.dashboard {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 320px;
+    background-color: #131722;
+    border-right: 1px solid #2a2e39;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.sidebar.collapsed {
+    transform: translateX(-280px);
+}
+
+.sidebar-header {
+    padding: 20px;
+    border-bottom: 1px solid #2a2e39;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f7f8fa;
+}
+
+.sidebar-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 5px;
+}
+
+.sidebar-toggle span {
+    width: 20px;
+    height: 2px;
+    background-color: #868b94;
+    transition: all 0.3s ease;
+}
+
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.tab-buttons {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 2px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: #868b94;
+    padding: 12px 15px;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+    background-color: #1e222d;
+    color: #f7f8fa;
+}
+
+.tab-btn.active {
+    background-color: #2962ff;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content h3 {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #f7f8fa;
+    font-weight: 600;
+}
+
+.indicator-group {
+    margin-bottom: 25px;
+}
+
+.indicator-group h4 {
+    font-size: 13px;
+    color: #868b94;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.indicator-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 6px 0;
+    transition: color 0.2s ease;
+}
+
+.indicator-group label:hover {
+    color: #f7f8fa;
+}
+
+.indicator-group input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: #2962ff;
+}
+
+.research-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.research-btn {
+    background: #1e222d;
+    border: 1px solid #2a2e39;
+    color: #e1e5e9;
+    padding: 12px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.research-btn:hover {
+    background-color: #2a2e39;
+    color: #f7f8fa;
+}
+
+.backtest-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.backtest-controls label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 13px;
+    color: #868b94;
+}
+
+.backtest-controls select,
+.backtest-controls input[type="date"] {
+    background-color: #1e222d;
+    border: 1px solid #2a2e39;
+    color: #e1e5e9;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.run-backtest {
+    background-color: #2962ff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 13px;
+    transition: background-color 0.2s ease;
+}
+
+.run-backtest:hover {
+    background-color: #1e4bda;
+}
+
+.watchlist-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.watchlist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #1e222d;
+    border-radius: 6px;
+    border: 1px solid #2a2e39;
+}
+
+.watchlist-item .symbol {
+    font-weight: 600;
+    font-size: 13px;
+    color: #f7f8fa;
+}
+
+.watchlist-item .price {
+    font-size: 13px;
+    color: #e1e5e9;
+    font-weight: 500;
+}
+
+.watchlist-item .change {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.positive {
+    color: #26a69a;
+}
+
+.negative {
+    color: #ef5350;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #0d1421;
+}
+
+.header {
+    padding: 15px 20px;
+    background-color: #131722;
+    border-bottom: 1px solid #2a2e39;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.ticker-input-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.ticker-input {
+    background-color: #1e222d;
+    border: 1px solid #2a2e39;
+    color: #e1e5e9;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 250px;
+    font-weight: 500;
+}
+
+.ticker-input:focus {
+    outline: none;
+    border-color: #2962ff;
+    box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.2);
+}
+
+.search-btn {
+    background-color: #2962ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.search-btn:hover {
+    background-color: #1e4bda;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.chart-type-buttons {
+    display: flex;
+    gap: 4px;
+}
+
+.chart-type-btn {
+    background: #1e222d;
+    border: 1px solid #2a2e39;
+    color: #868b94;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.chart-type-btn:hover {
+    background-color: #2a2e39;
+    color: #e1e5e9;
+}
+
+.chart-type-btn.active {
+    background-color: #26a69a;
+    color: white;
+    border-color: #26a69a;
+}
+
+.timeframe-buttons {
+    display: flex;
+    gap: 4px;
+}
+
+.chart-tools {
+    display: flex;
+    gap: 4px;
+}
+
+.tool-btn {
+    background: #1e222d;
+    border: 1px solid #2a2e39;
+    color: #868b94;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tool-btn:hover {
+    background-color: #2a2e39;
+    color: #e1e5e9;
+}
+
+.tool-btn.active {
+    background-color: #2962ff;
+    color: white;
+    border-color: #2962ff;
+}
+
+.timeframe-btn {
+    background: #1e222d;
+    border: 1px solid #2a2e39;
+    color: #868b94;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.timeframe-btn:hover {
+    background-color: #2a2e39;
+    color: #e1e5e9;
+}
+
+.timeframe-btn.active {
+    background-color: #2962ff;
+    color: white;
+    border-color: #2962ff;
+}
+
+.content-area {
+    flex: 1;
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    overflow: hidden;
+}
+
+.chart-container {
+    flex: 1;
+    background-color: #131722;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #2a2e39;
+    position: relative;
+}
+
+#stockChart {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.info-panel {
+    width: 300px;
+    background-color: #131722;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #2a2e39;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.ticker-display h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #f7f8fa;
+    margin-bottom: 5px;
+    letter-spacing: -0.5px;
+}
+
+.ticker-display p {
+    font-size: 14px;
+    color: #868b94;
+    font-weight: 500;
+}
+
+.current-price {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#currentPrice {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f7f8fa;
+    letter-spacing: -0.5px;
+}
+
+#priceChange {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.key-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #1e222d;
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #868b94;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 13px;
+    color: #f7f8fa;
+    font-weight: 600;
+    text-align: right;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 280px;
+        position: absolute;
+        z-index: 1000;
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .content-area {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .info-panel {
+        width: 100%;
+        order: -1;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .ticker-input-container {
+        justify-content: center;
+    }
+    
+    .timeframe-buttons {
+        justify-content: center;
+    }
+}
+
+/* Chart loading state */
+.chart-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #868b94;
+    font-size: 14px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1e222d;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2a2e39;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #363a45;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: #131722;
+    margin: 10% auto;
+    border: 1px solid #2a2e39;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #2a2e39;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #f7f8fa;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.modal-close {
+    color: #868b94;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 5px;
+    transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+    color: #f7f8fa;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.data-source-options {
+    margin-bottom: 25px;
+}
+
+.radio-label {
+    display: block;
+    margin-bottom: 12px;
+    cursor: pointer;
+    color: #e1e5e9;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.radio-label:hover {
+    background-color: #1e222d;
+}
+
+.radio-label input[type="radio"] {
+    margin: 0;
+    accent-color: #2962ff;
+}
+
+.api-config {
+    display: none;
+    margin-top: 20px;
+}
+
+.api-config.active {
+    display: block;
+}
+
+.config-section {
+    margin-bottom: 20px;
+}
+
+.config-section label {
+    display: block;
+    margin-bottom: 8px;
+    color: #868b94;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.config-section input,
+.config-section select {
+    width: 100%;
+    background-color: #1e222d;
+    border: 1px solid #2a2e39;
+    color: #e1e5e9;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.config-section input:focus,
+.config-section select:focus {
+    outline: none;
+    border-color: #2962ff;
+    box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.2);
+}
+
+.config-section small {
+    display: block;
+    margin-top: 5px;
+    color: #868b94;
+    font-size: 11px;
+}
+
+.modal-footer {
+    padding: 20px;
+    border-top: 1px solid #2a2e39;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.modal-btn.cancel {
+    background-color: #1e222d;
+    color: #e1e5e9;
+    border: 1px solid #2a2e39;
+}
+
+.modal-btn.cancel:hover {
+    background-color: #2a2e39;
+}
+
+.modal-btn.save {
+    background-color: #2962ff;
+    color: white;
+}
+
+.modal-btn.save:hover {
+    background-color: #1e4bda;
+}

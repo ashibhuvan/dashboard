@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-trading-dark text-trading-text font-trading;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-feature-settings: 'tnum' 1; /* Tabular numbers for consistent width */
+  }
+
+  html, body, #root {
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+@layer components {
+  /* Custom scrollbar */
+  .trading-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .trading-scrollbar::-webkit-scrollbar-track {
+    @apply bg-trading-darker;
+  }
+
+  .trading-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-trading-border rounded;
+  }
+
+  .trading-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-600;
+  }
+
+  /* Chart container */
+  .chart-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Blinking cursor for live data */
+  .live-indicator {
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.5; }
+  }
+
+  /* Price change animations */
+  .price-up {
+    animation: flash-green 0.5s ease-out;
+  }
+
+  .price-down {
+    animation: flash-red 0.5s ease-out;
+  }
+
+  @keyframes flash-green {
+    0% { background-color: rgba(38, 166, 154, 0.3); }
+    100% { background-color: transparent; }
+  }
+
+  @keyframes flash-red {
+    0% { background-color: rgba(239, 83, 80, 0.3); }
+    100% { background-color: transparent; }
+  }
+}
+
+@layer utilities {
+  .text-mono {
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  .trading-shadow {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+}
