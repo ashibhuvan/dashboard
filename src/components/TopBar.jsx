@@ -47,34 +47,65 @@ const TopBar = ({
 
   return (
     <>
-      <div className="bg-trading-darker border-b border-trading-border px-4 py-3 flex items-center justify-between">
-        {/* Left section - Symbol search */}
-        <div className="flex items-center space-x-4">
-          <form onSubmit={handleSearch} className="flex items-center">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-trading-text-dim w-4 h-4" />
-              <input
-                type="text"
-                value={searchValue}
-                onChange={handleSearchChange}
-                placeholder="Enter symbol (e.g., AAPL)"
-                className="bg-trading-dark border border-trading-border rounded-lg pl-10 pr-4 py-2 text-trading-text focus:outline-none focus:border-trading-blue focus:ring-1 focus:ring-trading-blue w-64"
-              />
-            </div>
+      <div className="bg-trading-darker border-b border-trading-border px-2 sm:px-4 py-3 flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-3 lg:space-y-0">
+        {/* Top row - Symbol search and tools */}
+        <div className="flex items-center justify-between">
+          {/* Left section - Symbol search */}
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            <form onSubmit={handleSearch} className="flex items-center">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-trading-text-dim w-4 h-4" />
+                <input
+                  type="text"
+                  value={searchValue}
+                  onChange={handleSearchChange}
+                  placeholder="Symbol (AAPL)"
+                  className="bg-trading-dark border border-trading-border rounded-lg pl-10 pr-4 py-2 text-trading-text focus:outline-none focus:border-trading-blue focus:ring-1 focus:ring-trading-blue w-32 sm:w-48 lg:w-64"
+                />
+              </div>
+              <button
+                type="submit"
+                className="ml-2 bg-trading-blue text-white px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors text-sm"
+              >
+                <span className="hidden sm:inline">Search</span>
+                <span className="sm:hidden">Go</span>
+              </button>
+            </form>
+          </div>
+
+          {/* Right section - Tools */}
+          <div className="flex items-center space-x-1 sm:space-x-2">
             <button
-              type="submit"
-              className="ml-2 bg-trading-blue text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+              onClick={() => window.print()}
+              className="p-2 text-trading-text-dim hover:text-trading-text hover:bg-trading-border rounded-lg transition-colors"
+              title="Export Chart"
             >
-              Search
+              <Download className="w-4 h-4" />
             </button>
-          </form>
+            
+            <button
+              onClick={() => document.documentElement.requestFullscreen()}
+              className="p-2 text-trading-text-dim hover:text-trading-text hover:bg-trading-border rounded-lg transition-colors"
+              title="Fullscreen"
+            >
+              <Maximize2 className="w-4 h-4" />
+            </button>
+            
+            <button
+              onClick={openDataSourceSettings}
+              className="p-2 text-trading-text-dim hover:text-trading-text hover:bg-trading-border rounded-lg transition-colors"
+              title="Settings"
+            >
+              <Settings className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
-        {/* Center section - Chart controls */}
-        <div className="flex items-center space-x-6">
+        {/* Bottom row - Chart controls */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 lg:space-x-6">
           {/* Chart type */}
           <div className="flex items-center space-x-2">
-            <span className="text-sm text-trading-text-dim">Type:</span>
+            <span className="text-sm text-trading-text-dim hidden sm:inline">Type:</span>
             <select
               value={chartType}
               onChange={(e) => onChartTypeChange(e.target.value)}
@@ -89,12 +120,12 @@ const TopBar = ({
           </div>
 
           {/* Timeframe */}
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-1 overflow-x-auto">
             {timeframes.map(tf => (
               <button
                 key={tf.value}
                 onClick={() => onTimeframeChange(tf.value)}
-                className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                className={`px-2 sm:px-3 py-1 rounded text-sm font-medium transition-colors whitespace-nowrap ${
                   timeframe === tf.value
                     ? 'bg-trading-blue text-white'
                     : 'bg-trading-dark text-trading-text-dim hover:text-trading-text hover:bg-trading-border'
@@ -104,33 +135,6 @@ const TopBar = ({
               </button>
             ))}
           </div>
-        </div>
-
-        {/* Right section - Tools */}
-        <div className="flex items-center space-x-2">
-          <button
-            onClick={() => window.print()}
-            className="p-2 text-trading-text-dim hover:text-trading-text hover:bg-trading-border rounded-lg transition-colors"
-            title="Export Chart"
-          >
-            <Download className="w-4 h-4" />
-          </button>
-          
-          <button
-            onClick={() => document.documentElement.requestFullscreen()}
-            className="p-2 text-trading-text-dim hover:text-trading-text hover:bg-trading-border rounded-lg transition-colors"
-            title="Fullscreen"
-          >
-            <Maximize2 className="w-4 h-4" />
-          </button>
-          
-          <button
-            onClick={openDataSourceSettings}
-            className="p-2 text-trading-text-dim hover:text-trading-text hover:bg-trading-border rounded-lg transition-colors"
-            title="Settings"
-          >
-            <Settings className="w-4 h-4" />
-          </button>
         </div>
       </div>
 

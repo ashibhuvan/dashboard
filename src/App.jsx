@@ -44,7 +44,7 @@ function App() {
       />
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Top bar */}
         <TopBar
           currentSymbol={currentSymbol}
@@ -56,9 +56,9 @@ function App() {
         />
 
         {/* Chart and market info */}
-        <div className="flex-1 flex overflow-hidden">
+        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
           {/* Chart */}
-          <div className="flex-1 p-4">
+          <div className="flex-1 p-4 min-h-0">
             <TradingChart
               symbol={currentSymbol}
               timeframe={timeframe}
@@ -68,7 +68,7 @@ function App() {
           </div>
 
           {/* Market info panel */}
-          <div className="w-80 border-l border-trading-border">
+          <div className="w-full lg:w-80 lg:border-l border-t lg:border-t-0 border-trading-border lg:max-h-full max-h-96 lg:min-h-0">
             <MarketInfo symbol={currentSymbol} />
           </div>
         </div>

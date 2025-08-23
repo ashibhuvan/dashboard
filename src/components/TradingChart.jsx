@@ -245,27 +245,27 @@ const TradingChart = ({ symbol, timeframe, chartType, activeIndicators }) => {
   }
 
   return (
-    <div className="chart-container bg-trading-darker rounded-lg border border-trading-border relative overflow-hidden">
+    <div className="chart-container bg-trading-darker rounded-lg border border-trading-border relative overflow-hidden w-full h-full">
       {/* Loading overlay */}
       {(isLoading || dataLoading) && (
         <div className="absolute inset-0 bg-trading-darker bg-opacity-80 flex items-center justify-center z-10">
           <div className="flex items-center space-x-3">
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-trading-blue"></div>
-            <span className="text-trading-text-dim">Loading {symbol} data...</span>
+            <span className="text-trading-text-dim text-sm">Loading {symbol} data...</span>
           </div>
         </div>
       )}
 
       {/* Chart controls overlay */}
-      <div className="absolute top-4 left-4 z-10 flex items-center space-x-4">
-        <div className="bg-trading-darker bg-opacity-90 rounded-lg px-3 py-1.5 border border-trading-border">
-          <span className="text-trading-text-bright font-semibold text-lg">{symbol}</span>
+      <div className="absolute top-2 sm:top-4 left-2 sm:left-4 z-10 flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+        <div className="bg-trading-darker bg-opacity-90 rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 border border-trading-border">
+          <span className="text-trading-text-bright font-semibold text-base sm:text-lg">{symbol}</span>
         </div>
         
         {data && data.ohlc.length > 0 && (
-          <div className="bg-trading-darker bg-opacity-90 rounded-lg px-3 py-1.5 border border-trading-border">
+          <div className="bg-trading-darker bg-opacity-90 rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 border border-trading-border">
             <span className="text-xs text-trading-text-dim">Last: </span>
-            <span className="text-sm text-trading-text-bright font-mono">
+            <span className="text-xs sm:text-sm text-trading-text-bright font-mono">
               ${data.ohlc[data.ohlc.length - 1]?.close?.toFixed(2)}
             </span>
           </div>
@@ -276,18 +276,19 @@ const TradingChart = ({ symbol, timeframe, chartType, activeIndicators }) => {
       <div 
         ref={chartContainerRef}
         className="w-full h-full"
-        style={{ minHeight: '400px' }}
+        style={{ minHeight: '300px' }}
       />
 
       {/* Chart info overlay */}
-      <div className="absolute bottom-4 right-4 z-10">
-        <div className="bg-trading-darker bg-opacity-90 rounded-lg px-3 py-1.5 border border-trading-border">
-          <div className="flex items-center space-x-2 text-xs text-trading-text-dim">
-            <span>🔍 Scroll to zoom</span>
-            <span>•</span>
-            <span>🖱️ Drag to pan</span>
-            <span>•</span>
-            <span>Double-click to reset</span>
+      <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 z-10">
+        <div className="bg-trading-darker bg-opacity-90 rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 border border-trading-border">
+          <div className="flex items-center space-x-1 sm:space-x-2 text-xs text-trading-text-dim">
+            <span className="hidden sm:inline">🔍 Scroll to zoom</span>
+            <span className="hidden sm:inline">•</span>
+            <span className="hidden sm:inline">🖱️ Drag to pan</span>
+            <span className="hidden sm:inline">•</span>
+            <span className="hidden sm:inline">Double-click to reset</span>
+            <span className="sm:hidden">Interactive chart</span>
           </div>
         </div>
       </div>

@@ -1,21 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
 import { generateSampleData } from '../utils/dataGenerator'
 import { fetchAlphaVantageData, fetchPolygonData } from '../services/marketDataAPI'
+import { getApiConfig, validateApiConfig, DATA_SOURCES } from '../utils/apiConfig'
 
 export const useMarketData = (symbol, timeframe) => {
   const [data, setData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
-
-  // Get data source from localStorage
-  const getDataSource = useCallback(() => {
-    try {
-      const config = localStorage.getItem('tradingDashboardConfig')
-      return config ? JSON.parse(config) : { source: 'demo' }
-    } catch {
-      return { source: 'demo' }
-    }
-  }, [])
 
   const fetchData = useCallback(async () => {
     if (!symbol) return
@@ -24,15 +15,16 @@ export const useMarketData = (symbol, timeframe) => {
     setError(null)
 
     try {
-      const config = getDataSource()
+      const config = getApiConfig()
+
       let marketData
 
       switch (config.source) {
-        case 'alphavantage':
+        case DATA_SOURCES.ALPHA_VANTAGE:
           marketData = await fetchAlphaVantageData(symbol, timeframe, config.apiKey)
           break
         
-        case 'polygon':
+        case DATA_SOURCES.POLYGON:
           marketData = await fetchPolygonData(symbol, timeframe, config.apiKey)
           break
         
@@ -48,6 +40,7 @@ export const useMarketData = (symbol, timeframe) => {
       
       // Fallback to demo data on error
       try {
+        console.log('Falling back to demo data...')
         const fallbackData = generateSampleData(symbol, timeframe)
         setData(fallbackData)
       } catch (fallbackErr) {
@@ -56,22 +49,29 @@ export const useMarketData = (symbol, timeframe) => {
     } finally {
       setIsLoading(false)
     }
-  }, [symbol, timeframe, getDataSource])
+  }, [symbol, timeframe])
 
   // Initial data fetch
   useEffect(() => {
     fetchData()
   }, [fetchData])
 
-  // Auto-refresh for live data (every 30 seconds for demo, configurable for real APIs)
+  // Auto-refresh for live data (only for demo data to avoid API limits)
   useEffect(() => {
-    const config = getDataSource()
+    const config = getApiConfig()
     
-    if (config.source === 'demo' || config.enableLiveUpdates) {
-      const interval = setInterval(fetchData, 30000) // 30 seconds
-      return () => clearInterval(interval)
+    // Only enable auto-refresh for demo data to avoid hitting API limits
+    if (config.source === DATA_SOURCES.DEMO) {
+      console.log(`Setting up demo auto-refresh every ${config.updateInterval}ms`)
+      const interval = setInterval(() => {
+        fetchData()
+      }, config.updateInterval)
+      return () => {
+        console.log('Clearing auto-refresh interval')
+        clearInterval(interval)
+      }
     }
-  }, [fetchData, getDataSource])
+  }, [symbol, timeframe]) // Only depend on symbol and timeframe changes
 
   const refetch = useCallback(() => {
     fetchData()
@@ -82,5 +82,6 @@ export const useMarketData = (symbol, timeframe) => {
     isLoading,
     error,
     refetch,
+    config: getApiConfig()
   }
 }

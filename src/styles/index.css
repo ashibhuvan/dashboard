@@ -85,4 +85,51 @@
   .trading-shadow {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   }
+
+  /* Responsive utilities */
+  .container-responsive {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (min-width: 640px) {
+    .container-responsive {
+      max-width: 640px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container-responsive {
+      max-width: 768px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-responsive {
+      max-width: 1024px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-responsive {
+      max-width: 1280px;
+    }
+  }
+
+  /* Mobile-first responsive text sizes */
+  .text-responsive-xs { font-size: 0.75rem; }
+  .text-responsive-sm { font-size: 0.875rem; }
+  .text-responsive-base { font-size: 1rem; }
+  .text-responsive-lg { font-size: 1.125rem; }
+  .text-responsive-xl { font-size: 1.25rem; }
+  .text-responsive-2xl { font-size: 1.5rem; }
+  .text-responsive-3xl { font-size: 1.875rem; }
+
+  @media (min-width: 768px) {
+    .text-responsive-3xl { font-size: 2.25rem; }
+    .text-responsive-2xl { font-size: 1.75rem; }
+    .text-responsive-xl { font-size: 1.5rem; }
+  }
 }

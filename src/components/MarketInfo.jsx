@@ -64,13 +64,13 @@ const MarketInfo = ({ symbol }) => {
   ]
 
   return (
-    <div className="bg-trading-darker border-l border-trading-border flex flex-col h-full">
+    <div className="bg-trading-darker border-l lg:border-l border-t lg:border-t-0 border-trading-border flex flex-col h-full">
       {/* Header */}
-      <div className="p-6 border-b border-trading-border">
+      <div className="p-4 lg:p-6 border-b border-trading-border">
         <div className="space-y-3">
           {/* Symbol and company name */}
           <div>
-            <h1 className="text-3xl font-bold text-trading-text-bright tracking-tight">
+            <h1 className="text-2xl lg:text-3xl font-bold text-trading-text-bright tracking-tight">
               {symbol}
             </h1>
             <p className="text-sm text-trading-text-dim font-medium">
@@ -84,7 +84,7 @@ const MarketInfo = ({ symbol }) => {
           {/* Current price and change */}
           <div className="space-y-2">
             <div className="flex items-baseline space-x-3">
-              <span className="text-3xl font-bold text-trading-text-bright font-mono">
+              <span className="text-2xl lg:text-3xl font-bold text-trading-text-bright font-mono">
                 ${data.currentPrice.toFixed(2)}
               </span>
               <span className="text-sm text-trading-text-dim">USD</span>
@@ -118,7 +118,7 @@ const MarketInfo = ({ symbol }) => {
       </div>
 
       {/* Market Statistics */}
-      <div className="flex-1 p-6 overflow-y-auto trading-scrollbar">
+      <div className="flex-1 p-4 lg:p-6 overflow-y-auto trading-scrollbar">
         <div className="space-y-4">
           <h3 className="text-sm font-semibold text-trading-text-bright uppercase tracking-wide">
             Market Statistics

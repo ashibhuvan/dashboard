@@ -35,8 +35,13 @@ export const fetchAlphaVantageData = async (symbol, timeframe, apiKey) => {
       throw new Error('API rate limit exceeded. Please try again later.')
     }
 
+    if (data['Information']) {
+      throw new Error(data['Information'])
+    }
+
     return formatAlphaVantageData(data, symbol, timeframe)
   } catch (error) {
+    console.error('Alpha Vantage fetch error:', error)
     throw new Error(`Alpha Vantage API error: ${error.message}`)
   }
 }
