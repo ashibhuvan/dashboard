@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar'
 import TradingChart from './components/TradingChart'
 import MarketInfo from './components/MarketInfo'
 import TopBar from './components/TopBar'
+import StockScanner from './components/StockScanner'
 
 function App() {
   const [currentSymbol, setCurrentSymbol] = useState('AAPL')
@@ -10,6 +11,7 @@ function App() {
   const [chartType, setChartType] = useState('candlestick')
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [activeIndicators, setActiveIndicators] = useState(new Set())
+  const [currentView, setCurrentView] = useState('chart') // 'chart' or 'scanner'
 
   const handleSymbolChange = (symbol) => {
     setCurrentSymbol(symbol.toUpperCase())
@@ -33,6 +35,20 @@ function App() {
     setActiveIndicators(newIndicators)
   }
 
+  const handleRunScan = () => {
+    setCurrentView('scanner')
+  }
+
+  const handleBackToChart = () => {
+    setCurrentView('chart')
+  }
+
+  // Show scanner view
+  if (currentView === 'scanner') {
+    return <StockScanner onBack={handleBackToChart} />
+  }
+
+  // Show chart view (default)
   return (
     <div className="flex h-screen w-screen bg-trading-dark">
       {/* Sidebar */}
@@ -53,6 +69,7 @@ function App() {
           onTimeframeChange={handleTimeframeChange}
           chartType={chartType}
           onChartTypeChange={handleChartTypeChange}
+          onRunScan={handleRunScan}
         />
 
         {/* Chart and market info */}

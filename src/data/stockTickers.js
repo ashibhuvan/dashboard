@@ -3,6 +3,8 @@
  * Includes major US exchanges: NYSE, NASDAQ, AMEX
  */
 
+// Extremely slow way to search but okay
+
 export const STOCK_TICKERS = [
   // Mega Cap Tech
   { symbol: "AAPL", name: "Apple Inc.", exchange: "NASDAQ", sector: "Technology" },

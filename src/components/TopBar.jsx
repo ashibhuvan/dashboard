@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Search, Settings, Download, Maximize2 } from 'lucide-react'
+import { Search, Settings, Download, Maximize2, Radar } from 'lucide-react'
 import TickerAutocomplete from './TickerAutocomplete'
 
 const TopBar = ({
@@ -8,7 +8,8 @@ const TopBar = ({
   timeframe,
   onTimeframeChange,
   chartType,
-  onChartTypeChange
+  onChartTypeChange,
+  onRunScan
 }) => {
   const [showSettings, setShowSettings] = useState(false)
 
@@ -55,6 +56,15 @@ const TopBar = ({
 
           {/* Right section - Tools */}
           <div className="flex items-center space-x-1 sm:space-x-2">
+            <button
+              onClick={onRunScan}
+              className="flex items-center space-x-2 bg-trading-blue text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium"
+              title="Run Stock Scan"
+            >
+              <Radar className="w-4 h-4" />
+              <span className="hidden sm:inline">Run Scan</span>
+            </button>
+            
             <button
               onClick={() => window.print()}
               className="p-2 text-trading-text-dim hover:text-trading-text hover:bg-trading-border rounded-lg transition-colors"
