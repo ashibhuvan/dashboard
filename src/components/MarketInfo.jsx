@@ -7,6 +7,7 @@ const MarketInfo = ({ symbol }) => {
   const { data, isLoading, error } = useMarketData(symbol, '1D')
   const companyInfo = generateCompanyInfo(symbol)
 
+
   if (error) {
     return (
       <div className="p-6 flex items-center justify-center text-trading-red">
@@ -70,13 +71,13 @@ const MarketInfo = ({ symbol }) => {
         <div className="space-y-3">
           {/* Symbol and company name */}
           <div>
-            <h1 className="text-2xl lg:text-3xl font-bold text-trading-text-bright tracking-tight">
+            <h1 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
               {symbol}
             </h1>
-            <p className="text-sm text-trading-text-dim font-medium">
+            <p className="text-sm text-gray-300 font-medium">
               {companyInfo.name}
             </p>
-            <p className="text-xs text-trading-text-dim">
+            <p className="text-xs text-gray-400">
               {companyInfo.sector}
             </p>
           </div>
@@ -84,10 +85,10 @@ const MarketInfo = ({ symbol }) => {
           {/* Current price and change */}
           <div className="space-y-2">
             <div className="flex items-baseline space-x-3">
-              <span className="text-2xl lg:text-3xl font-bold text-trading-text-bright font-mono">
+              <span className="text-2xl lg:text-3xl font-bold text-white font-mono">
                 ${data.currentPrice.toFixed(2)}
               </span>
-              <span className="text-sm text-trading-text-dim">USD</span>
+              <span className="text-sm text-gray-300">USD</span>
             </div>
             
             <div className={`flex items-center space-x-2 text-lg font-semibold ${

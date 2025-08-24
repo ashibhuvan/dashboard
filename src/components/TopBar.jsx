@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Search, Settings, Download, Maximize2 } from 'lucide-react'
+import TickerAutocomplete from './TickerAutocomplete'
 
 const TopBar = ({
   currentSymbol,
@@ -9,7 +10,6 @@ const TopBar = ({
   chartType,
   onChartTypeChange
 }) => {
-  const [searchValue, setSearchValue] = useState(currentSymbol)
   const [showSettings, setShowSettings] = useState(false)
 
   const timeframes = [
@@ -30,15 +30,8 @@ const TopBar = ({
     { value: 'ohlc', label: 'OHLC' },
   ]
 
-  const handleSearch = (e) => {
-    e.preventDefault()
-    if (searchValue.trim()) {
-      onSymbolChange(searchValue.trim())
-    }
-  }
-
-  const handleSearchChange = (e) => {
-    setSearchValue(e.target.value.toUpperCase())
+  const handleTickerSelect = (ticker) => {
+    onSymbolChange(ticker.symbol)
   }
 
   const openDataSourceSettings = () => {
@@ -52,25 +45,12 @@ const TopBar = ({
         <div className="flex items-center justify-between">
           {/* Left section - Symbol search */}
           <div className="flex items-center space-x-2 sm:space-x-4">
-            <form onSubmit={handleSearch} className="flex items-center">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-trading-text-dim w-4 h-4" />
-                <input
-                  type="text"
-                  value={searchValue}
-                  onChange={handleSearchChange}
-                  placeholder="Symbol (AAPL)"
-                  className="bg-trading-dark border border-trading-border rounded-lg pl-10 pr-4 py-2 text-trading-text focus:outline-none focus:border-trading-blue focus:ring-1 focus:ring-trading-blue w-32 sm:w-48 lg:w-64"
-                />
-              </div>
-              <button
-                type="submit"
-                className="ml-2 bg-trading-blue text-white px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors text-sm"
-              >
-                <span className="hidden sm:inline">Search</span>
-                <span className="sm:hidden">Go</span>
-              </button>
-            </form>
+            <TickerAutocomplete
+              value={currentSymbol}
+              onSelect={handleTickerSelect}
+              placeholder="Search stocks (AAPL, Apple...)"
+              className="w-48 sm:w-64 lg:w-80"
+            />
           </div>
 
           {/* Right section - Tools */}
