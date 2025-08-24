@@ -1,47 +1,4 @@
-# Professional Trading Dashboard
-
-A high-performance React trading dashboard built with TradingView's Lightweight Charts library. Designed for professional traders with advanced charting capabilities, technical indicators, and real-time data integration.
-
-## 🚀 Features
-
-### Interactive Charting
-- **TradingView Lightweight Charts** - Industry-standard charting library
-- **Multiple Chart Types** - Candlestick, Line, Area, OHLC
-- **Interactive Controls** - Zoom, pan, crosshair, double-click reset
-- **Professional Styling** - Dark theme optimized for trading
-
-### Technical Analysis
-- **Moving Averages** - SMA(20), SMA(50), EMA(12), EMA(26)
-- **Bollinger Bands** - Volatility analysis
-- **RSI** - Relative Strength Index
-- **MACD** - Moving Average Convergence Divergence
-- **VWAP** - Volume Weighted Average Price
-- **Volume Analysis** - Trading volume visualization
-
-### Data Integration
-- **Demo Mode** - Realistic sample data for testing
-- **Alpha Vantage** - Professional financial data API
-- **Polygon.io** - Real-time and historical market data
-- **Yahoo Finance** - Free financial data (limited)
-- **Real-time Updates** - Configurable live data refresh
-
-### Trading Tools
-- **Symbol Search** - Quick symbol lookup and switching
-- **Timeframe Selection** - 1m, 5m, 15m, 1h, 4h, 1D, 1W, 1M
-- **Watchlist** - Track multiple symbols
-- **Price Alerts** - Set price notifications
-- **Research Tools** - News, earnings, analyst ratings
-- **Backtesting** - Strategy testing engine
-
-## 🛠️ Technology Stack
-
-- **React 18** - Modern React with hooks
-- **Vite** - Fast build tool and dev server
-- **TradingView Lightweight Charts** - Professional charting
-- **Tailwind CSS** - Utility-first CSS framework
-- **Lucide React** - Beautiful icons
-
-## 📦 Installation
+ made with claude code
 
 ```bash
 # Install dependencies
